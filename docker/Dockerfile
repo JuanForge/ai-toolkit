@@ -91,6 +91,7 @@ RUN echo "Cache bust: ${CACHEBUST}" && \
     git checkout ${GIT_COMMIT} && \
     rsync -a --delete \
         --exclude 'start.sh' \
+        --exclude '.venv' \
         --exclude 'ui/node_modules' \
         --exclude 'requirements.txt' \
         --exclude 'ui/package.json' \
