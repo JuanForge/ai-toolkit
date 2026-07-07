@@ -2,6 +2,9 @@ FROM docker.io/nvidia/cuda:12.8.1-devel-ubuntu24.04
 
 LABEL authors="jaret"
 
+RUN userdel -r ubuntu
+RUN useradd -m -u 1000 app
+
 # Set noninteractive to avoid timezone prompts
 ENV DEBIAN_FRONTEND=noninteractive
 ENV PATH="/app/.venv/bin:/home/app/.local/bin:$PATH"
@@ -44,7 +47,6 @@ RUN curl -sL https://deb.nodesource.com/setup_23.x -o nodesource_setup.sh && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-RUN useradd -m app
 RUN mkdir -p /app && chown -R app:app /app
 
 COPY --chown=app:app ui/package.json ui/package-lock.json /app/ui/
